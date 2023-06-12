@@ -1,6 +1,9 @@
 import com.zeroc.Ice.ObjectAdapter;
 import com.zeroc.Ice.Object;
 import com.zeroc.Ice.Communicator;
+
+import java.util.ArrayList;
+
 import static com.zeroc.Ice.Util.initialize;
 import static com.zeroc.Ice.Util.stringToIdentity;
 
@@ -12,7 +15,7 @@ public class Server
         {
             ObjectAdapter adapter = communicator.createObjectAdapter("Server");
 
-            Object object = new Parking();
+            Object object = new Parking(new ArrayList<>());
             adapter.add(object, stringToIdentity("Parking"));
 
             adapter.activate();

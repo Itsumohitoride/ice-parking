@@ -1,18 +1,38 @@
 import ParkingDemo.TotalPayable;
 import com.zeroc.Ice.Current;
 
+import java.io.*;
 import java.time.Duration;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Parking implements TotalPayable {
+
+    public final String PARKING_HISTORY_PATH = "./server/data/ParkingHistory";
+
+    public final int costParking = 0;
+
+    public ArrayList<Vehicle> parkingHistory;
+
+    public Parking(ArrayList<Vehicle> parkingHistory) {
+        this.parkingHistory = parkingHistory;
+    }
+
     @Override
     public String parkingService(String licensePlate, Current current) {
+
+        loadData();
+
         if(isInParking(licensePlate, current)){
             String enterDate = getEnterDate(licensePlate, current);
             return "Total payable: " + calculateHours(enterDate, current);
         }
+
+        parkingHistory.add(new Vehicle(licensePlate, LocalDate.now(), null));
+        saveData();
 
         int total = (int) payable(calculateHours(getDate(),current), current);
         String message = "Total payable for " + licensePlate +": " + total;
@@ -73,5 +93,32 @@ public class Parking implements TotalPayable {
     public String getDate(){
         Scanner scanner = new Scanner(System.in);
         return scanner.nextLine();
+    }
+
+    public void loadData() {
+        File parkingHistoryFile = new File(PARKING_HISTORY_PATH);
+        try {
+            if (parkingHistoryFile.exists()){
+                ObjectInputStream objectInputStream = new ObjectInputStream(new FileInputStream(parkingHistoryFile));
+                parkingHistory = (ArrayList<Vehicle>)objectInputStream.readObject();
+                objectInputStream.close();
+            }
+        }catch (Exception exception){
+            System.out.println(exception.getMessage());
+            System.out.println("Hubo una falla al cargar los datos del historial de parqueo");
+        }
+
+    }
+
+    public void saveData(){
+
+        try {
+            ObjectOutputStream objectOutputStream = new ObjectOutputStream(new FileOutputStream(PARKING_HISTORY_PATH));
+            objectOutputStream.writeObject(parkingHistory);
+            objectOutputStream.close();
+
+        }catch (Exception exception){
+            System.out.println("Hubo una falla al guardar los datos del historial de parqueo");
+        }
     }
 }
