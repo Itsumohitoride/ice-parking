@@ -4,7 +4,7 @@ public class Client {
         try(com.zeroc.Ice.Communicator communicator = com.zeroc.Ice.Util.initialize(args))
         {
             com.zeroc.Ice.ObjectPrx base = communicator.stringToProxy("SimplePrinter:default -p 10000");
-            Demo.PrinterPrx printer = Demo.PrinterPrx.checkedCast(base);
+            ParkingDemo.PrinterPrx printer = ParkingDemo.PrinterPrx.checkedCast(base);
             if(printer == null)
             {
                 throw new Error("Invalid proxy");

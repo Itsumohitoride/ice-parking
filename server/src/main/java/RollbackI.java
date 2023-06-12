@@ -1,6 +1,6 @@
 import com.zeroc.Ice.Current;
 
-public class RollbackI implements Demo.Rollback{
+public class RollbackI implements ParkingDemo.Rollback{
     @Override
     public boolean checkResourceAvailability(String ipAddress, Current current) {
         return false;
