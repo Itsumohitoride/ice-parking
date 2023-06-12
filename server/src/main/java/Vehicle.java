@@ -1,5 +1,4 @@
 import java.io.Serializable;
-import java.time.LocalDate;
 
 public class Vehicle implements Serializable {
 
@@ -7,11 +6,11 @@ public class Vehicle implements Serializable {
 
     private String vehicleLicencePlate;
 
-    private LocalDate entryDate;
+    private String entryDate;
 
-    private LocalDate exitDate;
+    private String exitDate;
 
-    public Vehicle(String vehicleLicencePlate, LocalDate entryDate, LocalDate exitDate){
+    public Vehicle(String vehicleLicencePlate, String entryDate, String exitDate){
         this.vehicleLicencePlate = vehicleLicencePlate;
         this.entryDate = entryDate;
         this.exitDate = exitDate;
@@ -21,11 +20,15 @@ public class Vehicle implements Serializable {
         return vehicleLicencePlate;
     }
 
-    public LocalDate getEntryDate(){
+    public String getEntryDate(){
         return entryDate;
     }
 
-    public LocalDate getExitDate(){
+    public String getExitDate(){
         return exitDate;
+    }
+
+    public void setExitDate(String exitDate){
+        this.exitDate = exitDate;
     }
 }

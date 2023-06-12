@@ -3,17 +3,18 @@ import com.zeroc.Ice.Current;
 
 import java.io.*;
 import java.time.Duration;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
+import java.util.stream.Collectors;
 
 public class Parking implements TotalPayable {
 
     public final String PARKING_HISTORY_PATH = "./server/data/ParkingHistory";
 
-    public final int costParking = 0;
+    public final int costParking = 1000;
 
     public ArrayList<Vehicle> parkingHistory;
 
@@ -28,16 +29,23 @@ public class Parking implements TotalPayable {
 
         if(isInParking(licensePlate, current)){
             String enterDate = getEnterDate(licensePlate, current);
-            return "Total payable: " + calculateHours(enterDate, current);
+            double hoursToPay = calculateHours(enterDate, current);
+            int valueToPay = (int) payable(hoursToPay, current);
+
+            setExitDate(licensePlate, LocalDateTime.now());
+            saveData();
+            System.out.println("El vehiculo con placa "+licensePlate+" debe pagar $"+valueToPay);
+
+            return "Total a pagar: $"+valueToPay+"\n";
         }
 
-        parkingHistory.add(new Vehicle(licensePlate, LocalDate.now(), null));
+        System.out.println("Por favor ingrese la fecha de entrada del vehiculo "+licensePlate+" de la forma: anio-mes-dia HH:MM");
+        String entryDate = getDate();
+
+        parkingHistory.add(new Vehicle(licensePlate, entryDate, null));
         saveData();
 
-        int total = (int) payable(calculateHours(getDate(),current), current);
-        String message = "Total payable for " + licensePlate +": " + total;
-        printString(message, current);
-        return message;
+        return "Su vehiculo ingreso con exito al parquadero \n";
     }
 
     @Override
@@ -60,19 +68,30 @@ public class Parking implements TotalPayable {
             }
 
         } catch (Exception e) {
-            printString("Error: El formato de fecha y hora no es válido.", current);
+            printString("Error: El formato de fecha y hora no es valido.", current);
         }
         return cantidadHoras;
     }
 
     @Override
     public boolean isInParking(String licensePlate, Current current) {
-        return false;
+
+        List<Vehicle> vehicles = parkingHistory.stream()
+                .filter(vehicle -> vehicle.getVehicleLicencePlate().equalsIgnoreCase(licensePlate) &&
+                        vehicle.getExitDate() == null)
+                .collect(Collectors.toList());
+
+        return vehicles.size() == 1;
     }
 
     @Override
     public String getEnterDate(String licensePlate, Current current) {
-        return null;
+
+        List<Vehicle> vehicles = parkingHistory.stream()
+                .filter(vehicle -> vehicle.getVehicleLicencePlate().equalsIgnoreCase(licensePlate))
+                .collect(Collectors.toList());
+
+        return vehicles.get(0).getEntryDate();
     }
 
     @Override
@@ -87,7 +106,7 @@ public class Parking implements TotalPayable {
 
     @Override
     public double getValueHours(Current current) {
-        return 5000;
+        return costParking;
     }
 
     public String getDate(){
@@ -96,7 +115,9 @@ public class Parking implements TotalPayable {
     }
 
     public void loadData() {
+
         File parkingHistoryFile = new File(PARKING_HISTORY_PATH);
+
         try {
             if (parkingHistoryFile.exists()){
                 ObjectInputStream objectInputStream = new ObjectInputStream(new FileInputStream(parkingHistoryFile));
@@ -104,10 +125,18 @@ public class Parking implements TotalPayable {
                 objectInputStream.close();
             }
         }catch (Exception exception){
-            System.out.println(exception.getMessage());
-            System.out.println("Hubo una falla al cargar los datos del historial de parqueo");
+            System.out.println("No se pudo cargar los datos");
         }
 
+    }
+
+    public void setExitDate(String licensePlate, LocalDateTime exitDate){
+
+        List<Vehicle> vehicles = parkingHistory.stream()
+                .filter(vehicle -> vehicle.getVehicleLicencePlate().equalsIgnoreCase(licensePlate))
+                .collect(Collectors.toList());
+
+        vehicles.get(0).setExitDate(String.valueOf(exitDate));
     }
 
     public void saveData(){
