@@ -1,12 +1,20 @@
+import com.zeroc.Ice.ObjectAdapter;
+import com.zeroc.Ice.Object;
+import com.zeroc.Ice.Communicator;
+import static com.zeroc.Ice.Util.initialize;
+import static com.zeroc.Ice.Util.stringToIdentity;
+
 public class Server
 {
     public static void main(String[] args)
     {
-        try(com.zeroc.Ice.Communicator communicator = com.zeroc.Ice.Util.initialize(args))
+        try(Communicator communicator = initialize(args, "server.cfg"))
         {
-            com.zeroc.Ice.ObjectAdapter adapter = communicator.createObjectAdapterWithEndpoints("SimplePrinterAdapter", "default -p 10000");
-            com.zeroc.Ice.Object object = new PrinterI();
-            adapter.add(object, com.zeroc.Ice.Util.stringToIdentity("SimplePrinter"));
+            ObjectAdapter adapter = communicator.createObjectAdapter("Server");
+
+            Object object = new Parking();
+            adapter.add(object, stringToIdentity("Parking"));
+
             adapter.activate();
             communicator.waitForShutdown();
         }

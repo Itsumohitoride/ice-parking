@@ -1,15 +1,26 @@
+import ParkingDemo.TotalPayablePrx;
+import com.zeroc.Ice.Communicator;
+
+import static com.zeroc.Ice.Util.initialize;
+
 public class Client {
     public static void main(String[] args)
     {
-        try(com.zeroc.Ice.Communicator communicator = com.zeroc.Ice.Util.initialize(args))
+        try(Communicator communicator = initialize(args, "client.cfg"))
         {
-            com.zeroc.Ice.ObjectPrx base = communicator.stringToProxy("SimplePrinter:default -p 10000");
-            ParkingDemo.PrinterPrx printer = ParkingDemo.PrinterPrx.checkedCast(base);
-            if(printer == null)
+            TotalPayablePrx service = TotalPayablePrx.checkedCast(
+                    communicator.propertyToProxy("Parking.Proxy"));
+
+            if(service == null)
             {
                 throw new Error("Invalid proxy");
             }
-            printer.printString("Hello World!");
+            String total = service.parkingService("HOALKSL");
+            printMessage(total);
         }
+    }
+
+    private static void printMessage(String message){
+        System.out.println(message);
     }
 }
