@@ -15,4 +15,12 @@ module ParkingDemo
         bool checkResourceAvailability(string ipAddress);
         bool performRollback();
     }
+
+    interface TotalPayable
+    {
+        double payable(double hours);
+        double getValueHours();
+        double calculateHours(string enter);
+
+    }
 }
