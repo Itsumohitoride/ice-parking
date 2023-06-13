@@ -7,8 +7,9 @@ module ParkingDemo
 
     interface Rollback
     {
-        bool checkResourceAvailability(string ipAddress);
-        bool performRollback();
+        void rollbackChanges();
+        void generateFile();
+        void modifyFile();
     }
 
     interface TotalPayable

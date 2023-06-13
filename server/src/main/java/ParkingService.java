@@ -12,10 +12,11 @@ public class ParkingService implements ParkingDemo.ParkingFunctions{
     public ArrayList<Vehicle> parkingHistory;
 
     public Parking parking;
-
+    public RollbackI rollbackI;
     public ParkingService(ArrayList<Vehicle> parkingHistory) {
         this.parkingHistory = parkingHistory;
         parking = new Parking(this);
+        rollbackI = new RollbackI(this);
     }
     public final String PARKING_HISTORY_PATH = "./server/data/ParkingHistory";
 
@@ -29,7 +30,7 @@ public class ParkingService implements ParkingDemo.ParkingFunctions{
             int valueToPay = (int) parking.payable(hoursToPay, current);
 
             setExitDate(licensePlate, String.valueOf(LocalDateTime.now()), current);
-            saveData();
+            rollbackI.generateFile(current);
             System.out.println("El vehiculo con placa "+licensePlate+" debe pagar $"+valueToPay);
 
             return "Total a pagar: $"+valueToPay+"\n";
@@ -39,7 +40,7 @@ public class ParkingService implements ParkingDemo.ParkingFunctions{
         String entryDate = getDate(current);
 
         parkingHistory.add(new Vehicle(licensePlate, entryDate, null));
-        saveData();
+        rollbackI.generateFile(current);
 
         return "Su vehiculo ingreso con exito al parquadero \n";
     }
@@ -91,15 +92,4 @@ public class ParkingService implements ParkingDemo.ParkingFunctions{
         vehicles.get(0).setExitDate(exitDate);
     }
 
-    public void saveData(){
-
-        try {
-            ObjectOutputStream objectOutputStream = new ObjectOutputStream(new FileOutputStream(PARKING_HISTORY_PATH));
-            objectOutputStream.writeObject(parkingHistory);
-            objectOutputStream.close();
-
-        }catch (Exception exception){
-            System.out.println("Hubo una falla al guardar los datos del historial de parqueo");
-        }
-    }
 }

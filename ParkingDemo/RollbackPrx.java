@@ -17,64 +17,57 @@ package ParkingDemo;
 
 public interface RollbackPrx extends com.zeroc.Ice.ObjectPrx
 {
-    default boolean checkResourceAvailability(String ipAddress)
+    default void rollbackChanges()
     {
-        return checkResourceAvailability(ipAddress, com.zeroc.Ice.ObjectPrx.noExplicitContext);
+        rollbackChanges(com.zeroc.Ice.ObjectPrx.noExplicitContext);
     }
 
-    default boolean checkResourceAvailability(String ipAddress, java.util.Map<String, String> context)
+    default void rollbackChanges(java.util.Map<String, String> context)
     {
-        return _iceI_checkResourceAvailabilityAsync(ipAddress, context, true).waitForResponse();
+        _iceI_rollbackChangesAsync(context, true).waitForResponse();
     }
 
-    default java.util.concurrent.CompletableFuture<java.lang.Boolean> checkResourceAvailabilityAsync(String ipAddress)
+    default java.util.concurrent.CompletableFuture<Void> rollbackChangesAsync()
     {
-        return _iceI_checkResourceAvailabilityAsync(ipAddress, com.zeroc.Ice.ObjectPrx.noExplicitContext, false);
+        return _iceI_rollbackChangesAsync(com.zeroc.Ice.ObjectPrx.noExplicitContext, false);
     }
 
-    default java.util.concurrent.CompletableFuture<java.lang.Boolean> checkResourceAvailabilityAsync(String ipAddress, java.util.Map<String, String> context)
+    default java.util.concurrent.CompletableFuture<Void> rollbackChangesAsync(java.util.Map<String, String> context)
     {
-        return _iceI_checkResourceAvailabilityAsync(ipAddress, context, false);
+        return _iceI_rollbackChangesAsync(context, false);
     }
 
     /**
      * @hidden
-     * @param iceP_ipAddress -
      * @param context -
      * @param sync -
      * @return -
      **/
-    default com.zeroc.IceInternal.OutgoingAsync<java.lang.Boolean> _iceI_checkResourceAvailabilityAsync(String iceP_ipAddress, java.util.Map<String, String> context, boolean sync)
+    default com.zeroc.IceInternal.OutgoingAsync<Void> _iceI_rollbackChangesAsync(java.util.Map<String, String> context, boolean sync)
     {
-        com.zeroc.IceInternal.OutgoingAsync<java.lang.Boolean> f = new com.zeroc.IceInternal.OutgoingAsync<>(this, "checkResourceAvailability", null, sync, null);
-        f.invoke(true, context, null, ostr -> {
-                     ostr.writeString(iceP_ipAddress);
-                 }, istr -> {
-                     boolean ret;
-                     ret = istr.readBool();
-                     return ret;
-                 });
+        com.zeroc.IceInternal.OutgoingAsync<Void> f = new com.zeroc.IceInternal.OutgoingAsync<>(this, "rollbackChanges", null, sync, null);
+        f.invoke(false, context, null, null, null);
         return f;
     }
 
-    default boolean performRollback()
+    default void generateFile()
     {
-        return performRollback(com.zeroc.Ice.ObjectPrx.noExplicitContext);
+        generateFile(com.zeroc.Ice.ObjectPrx.noExplicitContext);
     }
 
-    default boolean performRollback(java.util.Map<String, String> context)
+    default void generateFile(java.util.Map<String, String> context)
     {
-        return _iceI_performRollbackAsync(context, true).waitForResponse();
+        _iceI_generateFileAsync(context, true).waitForResponse();
     }
 
-    default java.util.concurrent.CompletableFuture<java.lang.Boolean> performRollbackAsync()
+    default java.util.concurrent.CompletableFuture<Void> generateFileAsync()
     {
-        return _iceI_performRollbackAsync(com.zeroc.Ice.ObjectPrx.noExplicitContext, false);
+        return _iceI_generateFileAsync(com.zeroc.Ice.ObjectPrx.noExplicitContext, false);
     }
 
-    default java.util.concurrent.CompletableFuture<java.lang.Boolean> performRollbackAsync(java.util.Map<String, String> context)
+    default java.util.concurrent.CompletableFuture<Void> generateFileAsync(java.util.Map<String, String> context)
     {
-        return _iceI_performRollbackAsync(context, false);
+        return _iceI_generateFileAsync(context, false);
     }
 
     /**
@@ -83,14 +76,43 @@ public interface RollbackPrx extends com.zeroc.Ice.ObjectPrx
      * @param sync -
      * @return -
      **/
-    default com.zeroc.IceInternal.OutgoingAsync<java.lang.Boolean> _iceI_performRollbackAsync(java.util.Map<String, String> context, boolean sync)
+    default com.zeroc.IceInternal.OutgoingAsync<Void> _iceI_generateFileAsync(java.util.Map<String, String> context, boolean sync)
     {
-        com.zeroc.IceInternal.OutgoingAsync<java.lang.Boolean> f = new com.zeroc.IceInternal.OutgoingAsync<>(this, "performRollback", null, sync, null);
-        f.invoke(true, context, null, null, istr -> {
-                     boolean ret;
-                     ret = istr.readBool();
-                     return ret;
-                 });
+        com.zeroc.IceInternal.OutgoingAsync<Void> f = new com.zeroc.IceInternal.OutgoingAsync<>(this, "generateFile", null, sync, null);
+        f.invoke(false, context, null, null, null);
+        return f;
+    }
+
+    default void modifyFile()
+    {
+        modifyFile(com.zeroc.Ice.ObjectPrx.noExplicitContext);
+    }
+
+    default void modifyFile(java.util.Map<String, String> context)
+    {
+        _iceI_modifyFileAsync(context, true).waitForResponse();
+    }
+
+    default java.util.concurrent.CompletableFuture<Void> modifyFileAsync()
+    {
+        return _iceI_modifyFileAsync(com.zeroc.Ice.ObjectPrx.noExplicitContext, false);
+    }
+
+    default java.util.concurrent.CompletableFuture<Void> modifyFileAsync(java.util.Map<String, String> context)
+    {
+        return _iceI_modifyFileAsync(context, false);
+    }
+
+    /**
+     * @hidden
+     * @param context -
+     * @param sync -
+     * @return -
+     **/
+    default com.zeroc.IceInternal.OutgoingAsync<Void> _iceI_modifyFileAsync(java.util.Map<String, String> context, boolean sync)
+    {
+        com.zeroc.IceInternal.OutgoingAsync<Void> f = new com.zeroc.IceInternal.OutgoingAsync<>(this, "modifyFile", null, sync, null);
+        f.invoke(false, context, null, null, null);
         return f;
     }
 
