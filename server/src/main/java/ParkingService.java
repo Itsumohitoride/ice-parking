@@ -9,15 +9,24 @@ import java.util.stream.Collectors;
 
 public class ParkingService implements ParkingDemo.ParkingFunctions{
 
+    public final String PARKING_HISTORY_PATH = "./server/data/ParkingHistory";
+
     public ArrayList<Vehicle> parkingHistory;
 
     public Parking parking;
 
     public RollbackI rollbackI;
 
-    public final String PARKING_HISTORY_PATH = "./server/data/ParkingHistory";
+    private static ParkingService instance;
 
-    public ParkingService(ArrayList<Vehicle> parkingHistory) {
+    public static ParkingService getInstance(ArrayList<Vehicle> parkingHistory){
+        if(instance == null){
+            instance = new ParkingService(parkingHistory);
+        }
+        return instance;
+    }
+
+    private ParkingService(ArrayList<Vehicle> parkingHistory) {
         this.parkingHistory = parkingHistory;
         parking = new Parking(this);
         rollbackI = new RollbackI(this);

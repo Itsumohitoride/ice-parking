@@ -8,7 +8,7 @@ import java.util.stream.Collectors;
 
 public class Parking implements ParkingDemo.TotalPayable {
 
-    public final int costParking = 1000;
+    private final int costParking = 1000;
 
     public ParkingService parkingService;
 
