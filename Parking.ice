@@ -13,12 +13,19 @@ module ParkingDemo
 
     interface TotalPayable
     {
-        string parkingService(string licensePlate);
         double payable(double hours);
         double getValueHours();
         double calculateHours(string enter);
-        bool isInParking(string licensePlate);
         string getEnterDate(string licensePlate);
+    }
+
+    interface ParkingFunctions
+    {
+        string parkingService(string licensePlate);
+        bool isInParking(string licensePlate);
         void printString(string message);
+        string getDate();
+        void loadData();
+        void setExitDate(string date, string exitDate);
     }
 }

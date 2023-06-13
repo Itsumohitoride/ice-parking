@@ -1,4 +1,4 @@
-import ParkingDemo.TotalPayablePrx;
+import ParkingDemo.ParkingFunctionsPrx;
 import com.zeroc.Ice.Communicator;
 
 import java.util.Scanner;
@@ -10,7 +10,7 @@ public class Client {
     {
         try(Communicator communicator = initialize(args, "client.cfg"))
         {
-            TotalPayablePrx service = TotalPayablePrx.checkedCast(
+            ParkingFunctionsPrx service = ParkingFunctionsPrx.checkedCast(
                     communicator.propertyToProxy("Parking.Proxy"));
 
             if(service == null)

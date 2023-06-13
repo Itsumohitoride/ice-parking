@@ -17,46 +17,6 @@ package ParkingDemo;
 
 public interface TotalPayablePrx extends com.zeroc.Ice.ObjectPrx
 {
-    default String parkingService(String licensePlate)
-    {
-        return parkingService(licensePlate, com.zeroc.Ice.ObjectPrx.noExplicitContext);
-    }
-
-    default String parkingService(String licensePlate, java.util.Map<String, String> context)
-    {
-        return _iceI_parkingServiceAsync(licensePlate, context, true).waitForResponse();
-    }
-
-    default java.util.concurrent.CompletableFuture<java.lang.String> parkingServiceAsync(String licensePlate)
-    {
-        return _iceI_parkingServiceAsync(licensePlate, com.zeroc.Ice.ObjectPrx.noExplicitContext, false);
-    }
-
-    default java.util.concurrent.CompletableFuture<java.lang.String> parkingServiceAsync(String licensePlate, java.util.Map<String, String> context)
-    {
-        return _iceI_parkingServiceAsync(licensePlate, context, false);
-    }
-
-    /**
-     * @hidden
-     * @param iceP_licensePlate -
-     * @param context -
-     * @param sync -
-     * @return -
-     **/
-    default com.zeroc.IceInternal.OutgoingAsync<java.lang.String> _iceI_parkingServiceAsync(String iceP_licensePlate, java.util.Map<String, String> context, boolean sync)
-    {
-        com.zeroc.IceInternal.OutgoingAsync<java.lang.String> f = new com.zeroc.IceInternal.OutgoingAsync<>(this, "parkingService", null, sync, null);
-        f.invoke(true, context, null, ostr -> {
-                     ostr.writeString(iceP_licensePlate);
-                 }, istr -> {
-                     String ret;
-                     ret = istr.readString();
-                     return ret;
-                 });
-        return f;
-    }
-
     default double payable(double hours)
     {
         return payable(hours, com.zeroc.Ice.ObjectPrx.noExplicitContext);
@@ -174,46 +134,6 @@ public interface TotalPayablePrx extends com.zeroc.Ice.ObjectPrx
         return f;
     }
 
-    default boolean isInParking(String licensePlate)
-    {
-        return isInParking(licensePlate, com.zeroc.Ice.ObjectPrx.noExplicitContext);
-    }
-
-    default boolean isInParking(String licensePlate, java.util.Map<String, String> context)
-    {
-        return _iceI_isInParkingAsync(licensePlate, context, true).waitForResponse();
-    }
-
-    default java.util.concurrent.CompletableFuture<java.lang.Boolean> isInParkingAsync(String licensePlate)
-    {
-        return _iceI_isInParkingAsync(licensePlate, com.zeroc.Ice.ObjectPrx.noExplicitContext, false);
-    }
-
-    default java.util.concurrent.CompletableFuture<java.lang.Boolean> isInParkingAsync(String licensePlate, java.util.Map<String, String> context)
-    {
-        return _iceI_isInParkingAsync(licensePlate, context, false);
-    }
-
-    /**
-     * @hidden
-     * @param iceP_licensePlate -
-     * @param context -
-     * @param sync -
-     * @return -
-     **/
-    default com.zeroc.IceInternal.OutgoingAsync<java.lang.Boolean> _iceI_isInParkingAsync(String iceP_licensePlate, java.util.Map<String, String> context, boolean sync)
-    {
-        com.zeroc.IceInternal.OutgoingAsync<java.lang.Boolean> f = new com.zeroc.IceInternal.OutgoingAsync<>(this, "isInParking", null, sync, null);
-        f.invoke(true, context, null, ostr -> {
-                     ostr.writeString(iceP_licensePlate);
-                 }, istr -> {
-                     boolean ret;
-                     ret = istr.readBool();
-                     return ret;
-                 });
-        return f;
-    }
-
     default String getEnterDate(String licensePlate)
     {
         return getEnterDate(licensePlate, com.zeroc.Ice.ObjectPrx.noExplicitContext);
@@ -251,42 +171,6 @@ public interface TotalPayablePrx extends com.zeroc.Ice.ObjectPrx
                      ret = istr.readString();
                      return ret;
                  });
-        return f;
-    }
-
-    default void printString(String message)
-    {
-        printString(message, com.zeroc.Ice.ObjectPrx.noExplicitContext);
-    }
-
-    default void printString(String message, java.util.Map<String, String> context)
-    {
-        _iceI_printStringAsync(message, context, true).waitForResponse();
-    }
-
-    default java.util.concurrent.CompletableFuture<Void> printStringAsync(String message)
-    {
-        return _iceI_printStringAsync(message, com.zeroc.Ice.ObjectPrx.noExplicitContext, false);
-    }
-
-    default java.util.concurrent.CompletableFuture<Void> printStringAsync(String message, java.util.Map<String, String> context)
-    {
-        return _iceI_printStringAsync(message, context, false);
-    }
-
-    /**
-     * @hidden
-     * @param iceP_message -
-     * @param context -
-     * @param sync -
-     * @return -
-     **/
-    default com.zeroc.IceInternal.OutgoingAsync<Void> _iceI_printStringAsync(String iceP_message, java.util.Map<String, String> context, boolean sync)
-    {
-        com.zeroc.IceInternal.OutgoingAsync<Void> f = new com.zeroc.IceInternal.OutgoingAsync<>(this, "printString", null, sync, null);
-        f.invoke(false, context, null, ostr -> {
-                     ostr.writeString(iceP_message);
-                 }, null);
         return f;
     }
 
