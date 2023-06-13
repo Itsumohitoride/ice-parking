@@ -13,7 +13,17 @@ public class ParkingService implements ParkingDemo.ParkingFunctions{
 
     public Parking parking;
     public RollbackI rollbackI;
-    public ParkingService(ArrayList<Vehicle> parkingHistory) {
+
+    private static ParkingService instance;
+
+    public static ParkingService getInstance(ArrayList<Vehicle> parkingHistory){
+        if(instance == null){
+            instance = new ParkingService(parkingHistory);
+        }
+        return instance;
+    }
+
+    private ParkingService(ArrayList<Vehicle> parkingHistory) {
         this.parkingHistory = parkingHistory;
         parking = new Parking(this);
         rollbackI = new RollbackI(this);

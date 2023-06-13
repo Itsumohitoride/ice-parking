@@ -15,7 +15,7 @@ public class Server
         {
             ObjectAdapter adapter = communicator.createObjectAdapter("Server");
 
-            Object object = new ParkingService(new ArrayList<>());
+            Object object = ParkingService.getInstance(new ArrayList<>());
             adapter.add(object, stringToIdentity("Parking"));
 
             adapter.activate();
