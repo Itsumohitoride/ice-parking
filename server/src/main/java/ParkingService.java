@@ -12,13 +12,16 @@ public class ParkingService implements ParkingDemo.ParkingFunctions{
     public ArrayList<Vehicle> parkingHistory;
 
     public Parking parking;
+
     public RollbackI rollbackI;
+
+    public final String PARKING_HISTORY_PATH = "./server/data/ParkingHistory";
+
     public ParkingService(ArrayList<Vehicle> parkingHistory) {
         this.parkingHistory = parkingHistory;
         parking = new Parking(this);
         rollbackI = new RollbackI(this);
     }
-    public final String PARKING_HISTORY_PATH = "./server/data/ParkingHistory";
 
     public String parkingService(String licensePlate, Current current) {
 
