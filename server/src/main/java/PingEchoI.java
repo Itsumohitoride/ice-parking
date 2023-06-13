@@ -1,12 +1,9 @@
-import ParkingDemo.PingEcho;
-import com.zeroc.Ice.Current;
-
 import java.io.IOException;
 import java.net.InetAddress;
 
-public class PingEchoI implements PingEcho {
-    @Override
-    public String ping(String ipAddress, Current current) {
+public class PingEchoI {
+
+    public String ping(String ipAddress) {
         try {
             InetAddress inetAddress = InetAddress.getByName(ipAddress);
 

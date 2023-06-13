@@ -1,13 +1,7 @@
 module ParkingDemo
 {
-    interface PingEcho
-    {
-        string ping(string ipAddress);
-    }
-
     interface Rollback
     {
-        void rollbackChanges();
         void generateFile();
         void modifyFile();
     }

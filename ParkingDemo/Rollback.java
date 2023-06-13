@@ -17,8 +17,6 @@ package ParkingDemo;
 
 public interface Rollback extends com.zeroc.Ice.Object
 {
-    void rollbackChanges(com.zeroc.Ice.Current current);
-
     void generateFile(com.zeroc.Ice.Current current);
 
     void modifyFile(com.zeroc.Ice.Current current);
@@ -45,21 +43,6 @@ public interface Rollback extends com.zeroc.Ice.Object
     static String ice_staticId()
     {
         return "::ParkingDemo::Rollback";
-    }
-
-    /**
-     * @hidden
-     * @param obj -
-     * @param inS -
-     * @param current -
-     * @return -
-    **/
-    static java.util.concurrent.CompletionStage<com.zeroc.Ice.OutputStream> _iceD_rollbackChanges(Rollback obj, final com.zeroc.IceInternal.Incoming inS, com.zeroc.Ice.Current current)
-    {
-        com.zeroc.Ice.Object._iceCheckMode(null, current.mode);
-        inS.readEmptyParams();
-        obj.rollbackChanges(current);
-        return inS.setResult(inS.writeEmptyParams());
     }
 
     /**
@@ -100,8 +83,7 @@ public interface Rollback extends com.zeroc.Ice.Object
         "ice_ids",
         "ice_isA",
         "ice_ping",
-        "modifyFile",
-        "rollbackChanges"
+        "modifyFile"
     };
 
     /** @hidden */
@@ -140,10 +122,6 @@ public interface Rollback extends com.zeroc.Ice.Object
             case 5:
             {
                 return _iceD_modifyFile(this, in, current);
-            }
-            case 6:
-            {
-                return _iceD_rollbackChanges(this, in, current);
             }
         }
 

@@ -17,39 +17,6 @@ package ParkingDemo;
 
 public interface RollbackPrx extends com.zeroc.Ice.ObjectPrx
 {
-    default void rollbackChanges()
-    {
-        rollbackChanges(com.zeroc.Ice.ObjectPrx.noExplicitContext);
-    }
-
-    default void rollbackChanges(java.util.Map<String, String> context)
-    {
-        _iceI_rollbackChangesAsync(context, true).waitForResponse();
-    }
-
-    default java.util.concurrent.CompletableFuture<Void> rollbackChangesAsync()
-    {
-        return _iceI_rollbackChangesAsync(com.zeroc.Ice.ObjectPrx.noExplicitContext, false);
-    }
-
-    default java.util.concurrent.CompletableFuture<Void> rollbackChangesAsync(java.util.Map<String, String> context)
-    {
-        return _iceI_rollbackChangesAsync(context, false);
-    }
-
-    /**
-     * @hidden
-     * @param context -
-     * @param sync -
-     * @return -
-     **/
-    default com.zeroc.IceInternal.OutgoingAsync<Void> _iceI_rollbackChangesAsync(java.util.Map<String, String> context, boolean sync)
-    {
-        com.zeroc.IceInternal.OutgoingAsync<Void> f = new com.zeroc.IceInternal.OutgoingAsync<>(this, "rollbackChanges", null, sync, null);
-        f.invoke(false, context, null, null, null);
-        return f;
-    }
-
     default void generateFile()
     {
         generateFile(com.zeroc.Ice.ObjectPrx.noExplicitContext);

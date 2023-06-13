@@ -98,7 +98,8 @@ public class ParkingService implements ParkingDemo.ParkingFunctions{
     public void setExitDate(String licensePlate, String exitDate, Current current) {
 
         List<Vehicle> vehicles = parkingHistory.stream()
-                .filter(vehicle -> vehicle.getVehicleLicencePlate().equalsIgnoreCase(licensePlate))
+                .filter(vehicle -> vehicle.getVehicleLicencePlate().equalsIgnoreCase(licensePlate) &&
+                        vehicle.getExitDate() == null)
                 .collect(Collectors.toList());
 
         vehicles.get(0).setExitDate(exitDate);
